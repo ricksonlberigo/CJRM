@@ -11,3 +11,14 @@ const numbersGreaterThan37 = randomNumbers.filter(item => {
   return item >= 37
 })
 console.log(numbersGreaterThan37)
+
+// Retornar apenas os usuários que tem acesso ao premium
+const users = [
+  { name: 'Ada Lovelace', premium: true },
+  { name: 'Grace Hopper', premium: false },
+  { name: 'Alan Turing', premium: true },
+  { name: 'Linus Torvalds', premium: false },
+  { name: 'Margaret Hamilton', premium: true }
+]
+const premiumUsers = users.filter(user => user.premium)
+console.log(premiumUsers);
