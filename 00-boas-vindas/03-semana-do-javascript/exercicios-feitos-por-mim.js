@@ -53,35 +53,34 @@ const getUserScore = userAnswers =>
 
 //
 
-const addClasses = () => {
+const addClasses = ({ bgClass, textClass }) => {
   const classesToRemove = [
     'bg-danger-subtle',
     'text-danger',
     'bg-warning-subtle',
     'text-warning',
   ]
+
+  classesToRemove.forEach(classToRemove => {
+    finalScoreContainer.classList.remove(classToRemove)
+    scoreContent.classList.remove(classToRemove)
+  })
+
+  finalScoreContainer.classList.add(bgClass)
+  scoreContent.classList.add(textClass)
 }
 
 const changeScoreStyle = counter => {
   if (counter === 0) {
-    finalScoreContainer.classList.add('bg-danger-subtle')
-    scoreContent.classList.add('text-danger')
+    addClasses({ bgClass: 'bg-danger-subtle', textClass: 'text-danger' })
   }
 
   if (counter === 33) {
-    finalScoreContainer.classList.remove('bg-danger-subtle')
-    scoreContent.classList.remove('text-danger')
-    finalScoreContainer.classList.add('bg-warning-subtle')
-    scoreContent.classList.add('text-warning')
+    addClasses({ bgClass: 'bg-warning-subtle', textClass: 'text-warning' })
   }
 
   if (counter === 75) {
-    finalScoreContainer.classList.remove('bg-danger-subtle')
-    scoreContent.classList.remove('text-danger')
-    finalScoreContainer.classList.remove('bg-warning-subtle')
-    scoreContent.classList.remove('text-warning')
-    finalScoreContainer.classList.add('bg-success-subtle')
-    scoreContent.classList.add('text-success')
+    addClasses({ bgClass: 'bg-success-subtle', textClass: 'text-success' })
   }
 }
 
