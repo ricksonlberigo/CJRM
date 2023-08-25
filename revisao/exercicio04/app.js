@@ -43,7 +43,7 @@ const sentence = `Minhas 3 séries favoritas são: ${myFavoriteTvShows
 */
 
 const randomTVShow = 'Watchmen'
-const isRandomTvShowIncluded = randomTVShow.includes(myFavoriteTvShows)
+const isRandomTvShowIncluded = myFavoriteTvShows.includes(randomTVShow)
 // console.log(isRandomTvShowIncluded)
 
 /*
@@ -57,9 +57,7 @@ const isRandomTvShowIncluded = randomTVShow.includes(myFavoriteTvShows)
   "O tipo de dado que a const "isRandomTVShowIncluded" armazena é: TIPO_DE_DADO."
 */
 
-// Determine the correct data type and fill it into the typeSentence
 const typeSentence = `O tipo de dado que a const "isRandomTVShowIncluded" armazena é: ${typeof isRandomTvShowIncluded}`
-
 // console.log(typeSentence)
 
 /*
@@ -76,8 +74,12 @@ const typeSentence = `O tipo de dado que a const "isRandomTVShowIncluded" armaze
   caracteres? BOOLEAN."
 */
 
-const number = 39
-// console.log(`A string que a "typeSentence" armazena tem mais de ${number} caracteres? ${String(typeSentence.length === 39).replace('f', 'F')}.`)
+const numberToCheck = 39
+// console.log(
+//   `A string que a "typeSentence" armazena tem mais de ${numberToCheck} caracteres? ${String(
+//     typeSentence.length > numberToCheck,
+//   ).replace('t', 'T')}.`,
+// )
 
 /*
   06 - Comente o console.log() acima e:
@@ -90,7 +92,9 @@ const number = 39
 */
 
 const falsyValues = [0, '', false, '', ``, null, undefined, NaN]
-// console.log(`"Todos os ${falsyValues.length} itens do array "falsyValues" são falsy. Inclusive o  ${falsyValues[2]}."`)
+// console.log(
+//   `"Todos os ${falsyValues.length} itens do array "falsyValues" são falsy. Inclusive o  ${falsyValues[2]}."`,
+// )
 
 /*
   07 - Comente o console.log() acima e:
@@ -105,7 +109,7 @@ const crazyOperation = null + 1
 const crazyConversion = Boolean(crazyOperation)
 // console.log(crazyConversion)
 
-// Resultou em true, por que como 1 mais vazío é 1, e1 é um tipo de dado verdadeiro então retorna true
+// Resultou em true, por que como 1 mais vazio é 1, e 1 é um tipo de dado verdadeiro então retorna true
 
 /*
   08 - Comente o console.log() acima e:
@@ -145,4 +149,4 @@ const isNotAString = typeof randomTVShow !== 'string'
 */
 
 const evenNumbers = [0, 2, 4, 6, 8, 10]
-console.log(evenNumbers.indexOf(8) !== -1)
+// console.log(evenNumbers.indexOf(8) !== -1)
