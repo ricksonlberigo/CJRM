@@ -5,7 +5,7 @@
   - O resultado exibido no console deve ser: false true.
 */
 
-// console.log(!true, !false)
+console.log(!true, !false)
 
 /*
   02
@@ -18,11 +18,8 @@
 
 const animals = ['macaco', 'tucano', 'elefante', 'pavão', 'hipopótamo']
 
-if (!animals.includes('leão')) {
-  console.log('Leão não existe no array animals.')
-} else {
-  console.log('Existe leão no array animals.')
-}
+if (!animals.includes('leão')) console.log('Leão não existe no array animals.')
+else console.log('Existe leão no array animals.')
 
 /*
   03
@@ -36,13 +33,16 @@ if (!animals.includes('leão')) {
 */
 
 const randomNumbers = [59, 61, 73, 57, 35, 73, 21, 87, 43]
+let sumResult = null
+const limit = 400
 
-let sum = null
 for (let i = 0; i < randomNumbers.length; i++) {
-  sum += randomNumbers[i]
+  sumResult += randomNumbers[i]
 
-  if (sum >= 400) {
-    console.log(`A soma ultrapassou 400. Até aqui, o valor atual é ${sum}.`)
+  if (sumResult >= limit) {
+    console.log(
+      `A soma ultrapassou ${limit}. Até aqui, o valor atual é ${sumResult}.`,
+    )
     break
   }
 }
@@ -66,15 +66,15 @@ const sentence = [
   'da',
   'sabedoria.',
 ]
+let newSentence = ''
 
-let concatenetdSentence = ''
 for (let i = 0; i < sentence.length; i++) {
-  if (sentence[i] === 'certeza') {
-    continue
-  }
-  concatenetdSentence += sentence[i] + ' '
+  const word = sentence[i]
+  if (word === 'certeza') continue
+
+  newSentence += `${word} `
 }
-console.log(concatenetdSentence)
+console.log(newSentence)
 
 /*
   05
@@ -113,21 +113,39 @@ const randomValues = [
   null,
 ]
 
-let totalStrings = []
-for (let index = 0; index < randomValues.length; index++) {
-  if (randomValues[index] === 11) {
-    if (randomValues[index] === 'string') {
-      totalStrings.push(totalStrings)
-    }
-    continue
+let stringsAmount = 0
+let firstFourStrings = []
+let booleansAmount = 0
+let totalIterations = 0
+for (let i = 0; i < randomValues.length; i++) {
+  const item = randomValues[i]
+  const typeOfItem = typeof item
+  const isItemAsString = typeOfItem === 'string'
+  const isItemAsBoolean = typeOfItem === 'boolean'
+
+  if (stringsAmount === 4) break
+
+  if (isItemAsString) {
+    stringsAmount++
+    firstFourStrings.push(item)
   }
-  console.log(`
-  3 informações sobre o array randomValues:
-    - As primeiras 4 strings são ${totalStrings.slice(', ')}
-    - Até que as primeiras 4 strings fossem iteradas, XX booleans foram iterados;
-    - O array foi iterado por XX vezes.
-`)
+
+  if (isItemAsBoolean) booleansAmount++
+
+  totalIterations++
 }
+
+const lastItem = firstFourStrings[firstFourStrings.length - 1]
+const fourStrings = firstFourStrings
+  .join(', ')
+  .replace(`, ${lastItem}`, ` e ${lastItem}`)
+
+console.log(`
+3 informações sobre o array randomValues:
+  - As primeiras 4 strings são ${fourStrings};
+  - Até que as primeiras 4 strings fossem iteradas, ${booleansAmount} booleans foram iterados;
+  - O array foi iterado por ${totalIterations} vezes.
+`)
 
 /*
   06
@@ -149,7 +167,24 @@ for (let index = 0; index < randomValues.length; index++) {
     da bebida além da que você escolheu.
 */
 
-// const drinkType
+const drinkType = 'suco'
+let drinkMessage = null
+switch (drinkType) {
+  case 'água':
+    drinkMessage =
+      'Substância química cujas moléculas são formadas por dois átomos de hidrogênio e um de oxigênio.'
+    break
+  case 'refrigerante':
+    drinkMessage =
+      'Bebida não alcoólica e não fermentada, fabricada industrialmente, à base de água mineral e açúcar.'
+    break
+  case 'suco':
+    drinkMessage = 'Bebida produzida do líquido extraído de frutos.'
+    break
+  default:
+    drinkMessage = 'Bebida desconhecida'
+}
+console.log(drinkMessage)
 
 /*
   07
@@ -159,7 +194,8 @@ for (let index = 0; index < randomValues.length; index++) {
     para testar o switch que você escreveu.
 */
 
-const a = 2
+const number = 0
+const numberMessage = 'O valor de "number" é'
 
 // if (a === 0) {
 //   console.log(`O valor de "a" é ${a}`)
@@ -168,3 +204,14 @@ const a = 2
 // } else {
 //   console.log('O valor de "a" é qualquer número, exceto 0 e 1')
 // }
+
+switch (number) {
+  case 0:
+    console.log(`${numberMessage} ${number}`)
+    break
+  case 1:
+    console.log(`${numberMessage} ${number}`)
+    break
+  default:
+    console.log(`${numberMessage} qualquer número, exceto 0 e 1`)
+}
