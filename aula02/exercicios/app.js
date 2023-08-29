@@ -5,6 +5,8 @@
   - Ela deve ter um escopo global.
 */
 
+const myName = 'Rickson'
+
 /*
   02
 
@@ -18,6 +20,15 @@
     defined" será exibido no console;
   - Você sabe por que isso aconteceu?
 */
+
+const logAge = () => {
+  let age = 20
+  console.log(age)
+}
+console.log(logAge())
+// console.log(age)
+
+// Isso ocorre por que declaramos a variável dentro do escopo do bloco da função, e não no escopo global
 
 /*
   03
@@ -37,17 +48,41 @@
       "O NOME_DO_CARRO está disponível nas cores COR_01, COR_02 e COR_03".
 */
 
+const car = {
+  name: 'Civic',
+  brand: 'Honda',
+  colors: ['Black', 'Red', 'White'],
+  isRunning: false,
+  run() {
+    this.isRunning = true
+    return `${this.name} está em movimento.`
+  },
+  stop() {
+    this.isRunning = false
+    return `${this.name} está parado.`
+  },
+  getColorMessage() {
+    const lastItem = this.colors[this.colors.length - 1]
+    const colors = this.colors.join(', ').replace(lastItem, `e ${lastItem}`)
+    return `O ${this.name} está disponível nas cores ${colors}`
+  },
+}
+
 /*
   04
 
   - Faça o carro andar e exiba no console se ele realmente está em movimento.
 */
 
-/*
-  05
+console.log(car.run())
 
-  - Faça o carro parar e exiba no console se ele realmente está parado.
+/*
+05
+
+- Faça o carro parar e exiba no console se ele realmente está parado.
 */
+
+console.log(car.stop())
 
 /*
   06
@@ -55,9 +90,13 @@
   - Exiba, no console, a mensagem com as cores do carro.
 */
 
+console.log(car.getColorMessage())
+
 /*
   07
 
   - Exiba, no console, a mensagem "O carro é um MARCA_DO_CARRO NOME_DO_CARRO";
   - Utilize a notação de colchetes para acessar as propriedades do carro.
 */
+
+console.log(`O carro é um ${car['brand']} ${car['name']}`)
