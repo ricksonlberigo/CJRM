@@ -12,7 +12,12 @@ const getCatInfo = () => {
   const name = 'Marcos'
   let age = 3
   const color = 'Cinza'
+
+  return { name, age, color }
 }
+// Estamos desestruturando as informações do getCatInfo
+const { name, age, color } = getCatInfo()
+console.log(`${name} é um gato ${color} de ${age} anos.`)
 
 /*
   02
@@ -29,7 +34,10 @@ const external = () => {
     const extraInternal = () => {
       console.log(movie.toUpperCase())
     }
+    extraInternal()
   }
+
+  internal()
 }
 
 external()
@@ -44,6 +52,8 @@ external()
 */
 
 let randomNumbers = [3, 2, 1]
+randomNumbers.reverse()
+console.log(randomNumbers)
 
 /*
   04
@@ -60,6 +70,8 @@ let crazyArray = [
   },
   [5, 96, 53],
 ]
+crazyArray.shift()
+console.log(crazyArray)
 
 /*
   05
@@ -77,6 +89,8 @@ const dogs = [
   { name: 'Zequinha', age: 7, gender: 'Male', breed: 'Poodle' },
   { name: 'Xica', age: 6, gender: 'Female', breed: 'Chihuahua' },
 ]
+const zequinhaDogName = dogs.find(dog => dog.name === 'Zequinha')
+console.log(zequinhaDogName)
 
 /*
   06
@@ -110,6 +124,9 @@ const dogs = [
   </section>
 */
 
+const title = document.querySelector('main-title')
+console.log(title)
+
 /*
   07
 
@@ -117,3 +134,6 @@ const dogs = [
     página, através da classe deles;
   - Exiba esse NodeList no console.
 */
+
+const subtitles = document.querySelectorAll('.secondary-title')
+console.log(subtitles)
