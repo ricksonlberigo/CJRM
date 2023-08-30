@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <title>Etapa 05 - O Document Object Model - DOM</title>
+    <title>Etapa 05 - O2 Document Object Model - DOM</title>
     <style>
       * {
         color: #444;
@@ -12,10 +12,41 @@
         margin-top: 20px;
         text-align: center;
       }
+      .error {
+        padding: 10px;
+        color: crimson;
+        border: 1px solid crimson;
+      }
+      .success {
+        padding: 10px;
+        color: green;
+        border: 1px solid green;
+      }
     </style>
   </head>
   <body>
-    <h1>Learning JavaScript</h1>
+    <h1 class="title test" style="color: blueviolet">Learning JavaScript</h1>
+
+    <a href="https://twitter.com/rogermelodev">Roger Melo</a>
+
+    <p>lorem error lorem</p>
+    <p>lorem ipsum lorem</p>
+    <p>lorem ipsum success</p>
+    <p>lorem ipsum lorem</p>
+    <p>error ipsum lorem</p>
+    <p>lorem ipsum lorem</p>
+    <p>lorem success lorem</p>
+    <p>lorem ipsum lorem</p>
+
+    <div>
+      <div>
+        <p>Hello Word!</p>
+        <p>Oi</p>
+        <p class="error">Essa é uma mensagem de erro</p>
+      </div>
+
+      <div class="content"><p>Conteúdo aqui</p></div>
+    </div>
 
     <script src="./app.js"></script>
   </body>
