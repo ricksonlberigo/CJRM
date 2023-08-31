@@ -6,13 +6,13 @@
   - Exiba no console os elementos filhos da ul com a classe já inserida.
 */
 
-const ul = document.querySelector('ul')
+const ul = document.querySelector('.videos')
 const lis = Array.from(ul.children)
-const addClassInLis = li => {
+const insertVideoClass = li => {
   li.classList.add('video')
 }
-lis.forEach(addClassInLis)
-console.log(ul.children)
+lis.forEach(insertVideoClass)
+console.log(lis)
 
 /*
   02
@@ -48,12 +48,13 @@ console.log(ul.previousElementSibling)
     exibida no console.
 */
 
-const logLi = li => {
-  li.addEventListener('click', event => {
-    console.log(event.target)
-  })
+const showClickedLi = event => {
+  console.log(event.target)
 }
-lis.forEach(logLi)
+const addClickEvent = li => {
+  li.addEventListener('click', showClickedLi)
+}
+lis.forEach(addClickEvent)
 
 /*
   06
@@ -76,16 +77,29 @@ const videos = [
     length: '00:02:55',
   },
 ]
+
+// Jeito do Roger Melo
+const insertVideoLi = ({ name }) => {
+  ul.innerHTML += `<li>${name}</li>`
+}
+
+const handleClickButton = () => {
+  videos.forEach(insertVideoLi)
+}
+
 const button = document.querySelector('button')
+button.addEventListener('click', handleClickButton)
+
+/* O meu jeito que desenvolvi
 const addVideosInUl = video => {
   const li = document.createElement('li')
   li.innerText += video.name
-  ul.prepend(li)
+  ul.append(li)
 }
-
 button.addEventListener('click', () => {
   videos.forEach(addVideosInUl)
 })
+*/
 
 /*
   07
@@ -94,6 +108,7 @@ button.addEventListener('click', () => {
     sejam removidos.
 */
 
+const body = document.body
 h1.addEventListener('click', () => {
-  h1.parentElement.parentElement.remove()
+  body.innerHTML = ''
 })
