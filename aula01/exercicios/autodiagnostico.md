@@ -1,0 +1,1 @@
+Não consegui resolver o exercício 4, por que esqueci que não precisa sempre ter o ^ e o $, pois isso delimita que deve começar e terminar, porém as vezes as palavras não estão sendo no inicio ou no final

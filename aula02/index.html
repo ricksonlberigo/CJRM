@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Etapa 06 - Eventos em Formulário</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"
+    />
+    <style>
+      * {
+        color: #444;
+        background: #f7f7f7;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      h1 {
+        margin-top: 20px;
+        margin-bottom: 60px;
+        text-align: center;
+      }
+      .container {
+        max-width: 480px;
+      }
+      input.success {
+        border: 2px solid green;
+      }
+      input.error {
+        border: 2px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Learning JavaScript</h1>
+
+      <form action="" class="sigup-form">
+        <input type="text" id="username" placeholder="Username" autofocus />
+        <button>Enviar</button>
+        <p class="feedback"></p>
+      </form>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
