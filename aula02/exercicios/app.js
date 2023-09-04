@@ -22,32 +22,86 @@
 */
 
 const inputUsername = document.querySelector('#username')
-const usernameValid = username => /^[a-zA-Z]{6,}$/.test(username)
-const addTextAndClassInFeedback = (element, text, className) => {
-  element.textContent = text
-  element.classList.add(className)
+const form = document.querySelector('form')
+const button = document.querySelector('button')
+
+const paragraphUsernameFeedback = document.createElement('p')
+const paragraphSubmitFeedback = document.createElement('p')
+
+paragraphSubmitFeedback.setAttribute('data-feedback', 'submit-feedback')
+
+const invalidSubmitInfo = {
+  paragraph: paragraphSubmitFeedback,
+  text: 'Por favor, insira um username válido',
+  className: 'submit-help-feedback',
+  previousSibling: button,
+}
+const validSubmitInfo = {
+  paragraph: paragraphSubmitFeedback,
+  text: 'Dados enviados =)',
+  className: 'submit-success-feedback',
+  previousSibling: button,
+}
+const invalidUsernameInfo = {
+  paragraph: paragraphUsernameFeedback,
+  text: 'O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas',
+  className: 'username-help-feedback',
+  previousSibling: inputUsername,
+}
+const validUsernameInfo = {
+  paragraph: paragraphUsernameFeedback,
+  text: 'Username válido =)',
+  className: 'username-success-feedback',
+  previousSibling: inputUsername,
 }
 
-inputUsername.addEventListener('keyup', () => {
-  const isUsernameValid = usernameValid(inputUsername.value)
+const insertParagraphIntoDOM = paragraphInfo => {
+  const { paragraph, text, className, previousSibling } = paragraphInfo
+  paragraph.textContent = text
+  paragraph.setAttribute('class', className)
+  previousSibling.insertAdjacentElement('afterend', paragraph)
+}
 
-  const feedback = document.createElement('p')
-  if (isUsernameValid) {
-    addTextAndClassInFeedback(
-      feedback,
-      'Username válido =)',
-      'username-success-feedback',
-    )
-    inputUsername.insertAdjacentElement('afterend', feedback)
-  } else {
-    addTextAndClassInFeedback(
-      feedback,
-      'O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas',
-      'username-help-feedback',
-    )
-    inputUsername.insertAdjacentElement('afterend', feedback)
+const removeSubmitParagraph = () => {
+  const paragraphSubmitFeedbackExists = document.querySelector(
+    '[data-feedback="submit-feedback"]',
+  )
+
+  if (paragraphSubmitFeedbackExists) {
+    paragraphSubmitFeedback.remove()
   }
-})
+}
+
+const testUsername = inputValue => /^[a-zA-Z]{6,}$/.test(inputValue)
+
+const showUsernameInfo = event => {
+  const isUsernameValid = testUsername(event.target.value)
+
+  removeSubmitParagraph()
+
+  if (!isUsernameValid) {
+    insertParagraphIntoDOM(invalidUsernameInfo)
+    return
+  }
+
+  insertParagraphIntoDOM(validUsernameInfo)
+}
+
+const showSubmitInfo = event => {
+  event.preventDefault()
+
+  const isUsernameValid = testUsername(inputUsername.value)
+
+  if (!isUsernameValid) {
+    insertParagraphIntoDOM(invalidSubmitInfo)
+    return
+  }
+
+  insertParagraphIntoDOM(validSubmitInfo)
+}
+
+inputUsername.addEventListener('input', showUsernameInfo)
+form.addEventListener('submit', showSubmitInfo)
 
 /*
   02
@@ -60,31 +114,6 @@ inputUsername.addEventListener('keyup', () => {
   - Use as classes disponíveis no arquivo style.css para colorir o parágrafo;
   - Não insira o parágrafo manualmente no index.html.
 */
-
-form.addEventListener('submit', event => {
-  event.preventDefault()
-
-  const username = event.target.username.value
-  const isAValidUsername = usernameValid(username)
-
-  const feedback = document.createElement('p')
-
-  if (isAValidUsername) {
-    addTextAndClassInFeedback(
-      feedback,
-      'Dados enviados =)',
-      'submit-success-feedback',
-    )
-  } else {
-    addTextAndClassInFeedback(
-      feedback,
-      'Por favor, insira um username válido',
-      'submit-help-feedback',
-    )
-  }
-
-  form.insertAdjacentElement('beforeend', feedback)
-})
 
 /*
   03
@@ -104,4 +133,15 @@ form.addEventListener('submit', event => {
     2) Pesquisar no MDN.
 */
 
-const some = (firstArray, existsItem) => {}
+const some = (array, func) => {
+  for (let i = 0; i < array.length; i++) {
+    if (func(array[i])) {
+      return true
+    }
+  }
+
+  return false
+}
+
+console.log(some([1, 2, 3], item => item === 2))
+console.log(some([1, 2, 3], item => item === 4))
