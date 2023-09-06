@@ -92,12 +92,11 @@ const cookedIngredients = ingredients.reduce(
 
     // Se a última letra for igual a "a" vai ser cozida, caso ao contrário cozido
     const correctWordGender = /a$/.test(ingredient) ? 'cozida' : 'cozido'
+    const isLastItem = index === array.length - 1
 
-    if (index === array.length - 1) {
-      acc + `${ingredient} ${correctWordGender}`
-    }
+    const ingrdientMessage = acc +`${ingredient} ${correctWordGender}`
 
-    return acc + `${ingredient} ${correctWordGender}, `
+    return isLastItem ? ingrdientMessage : `${ingrdientMessage}, `
   },
   '',
 )
@@ -174,7 +173,7 @@ const pets = [
 
 const dogs = pets
   .filter(({ type }) => type === 'Dog')
-  .map(dog => ({ name: dog.name, age: dog.age * 7, gender: dog.name }))
+  .map(({name, age, gender}) => ({ name, age: age * 7, gender }))
 console.log({ dogs, pets })
 
 /*
@@ -186,9 +185,10 @@ console.log({ dogs, pets })
 
 const ul = document.querySelector('.list-group')
 
-const moviesNames = topBrazilMovies.reduce(
-  (acc, { title }) => acc + `<li>${title}</li>`,
-  '',
+const moviesNames = topBrazilMovies
+  .reduce(
+    (acc, { title }) => acc + `<li>${title}</li>`,
+    '',
 )
 
 ul.innerHTML = moviesNames
