@@ -1,0 +1,3 @@
+Em quase todos os exercícios usamos o sort, e como sabemos o método sort modifica o array original, para que possamos salvar o array original e não modificar, podemos utilizar uma técnica muito útil que é, utilizar o método slice(), sem nenhum argumento, por que o slice, cria um novo array com base no que você quer cortar, que são os argumentos, se passarmos nada, ele cria um array idêntico ao array que utilizou ele, e como sabemos podemos encadear métodos, assim, podemos utilizar o sort, que não irá interferir no array original
+
+Podemos utilizar o map também, pois o map cria um novo array, com todos os itens do array original, já que o map, cria um array com a quantidades exatas de itens no array onde ele foi chamado

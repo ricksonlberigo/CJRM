@@ -1,0 +1,1 @@
+No exercício 2, eu esqueci que para retornar um número eu tinha que somar o acc com mais 1, e não deixar apenas o acc, ou somar o number + acc, por que se não, não chegamos no resultado esperado do exercício
