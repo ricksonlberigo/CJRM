@@ -5,7 +5,7 @@
   - Não modifique a string manualmente.
 */
 
-const myString = '    JS      '.trim()
+const myString = '    JS      '
 const trimmedString = myString.trim()
 console.log(trimmedString)
 
@@ -25,16 +25,14 @@ const people = [
   { firstName: 'Eric', lastName: 'Silva', score: 82 },
 ]
 
-const peopleOrder = people
-  .map(person => {
-    return {
-      firstName: person.firstName,
-      lastName: person.lastName,
-      score: person.score,
-    }
-  })
+const peopleOrderedByScore = people
+  .map(({ firstName, lastName, score }) => ({
+    firstName,
+    lastName,
+    score,
+  }))
   .sort((item1, item2) => item1.score - item2.score)
-console.log(peopleOrder)
+console.log(peopleOrderedByScore)
 
 /*
   03
@@ -48,7 +46,7 @@ console.log(peopleOrder)
 
 const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
 
-const animalsWith3Characters = animals.filter(name => name.length === 3)
+const animalsWith3Characters = animals.filter(({ length }) => length === 3)
 console.log(animalsWith3Characters)
 
 /*
@@ -58,8 +56,8 @@ console.log(animalsWith3Characters)
     nome de cada animal. Ex.: [6, 8, 2].
 */
 
-const countCharacterInArrayOfAnimals = animals.map(animal => animal.length)
-console.log(countCharacterInArrayOfAnimals)
+const animalNamesLength = animals.map(({ length }) => length)
+console.log(animalNamesLength)
 
 /*
   05
@@ -76,10 +74,11 @@ const friends = [
   { id: 4, name: 'Nilson', nearMe: true },
   { id: 5, name: 'Solange', nearMe: false },
 ]
-const friendNear = friends
+
+const nameOfFriendsNearMe = friends
   .filter(({ nearMe }) => nearMe)
   .map(({ name }) => name)
-console.log(friendNear)
+console.log(nameOfFriendsNearMe)
 
 /*
   06
@@ -89,10 +88,10 @@ console.log(friendNear)
 */
 
 const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81]
-const oddNumbers = numbers
-  .filter(n => n % 2 === 1)
-  .reduce((acc, n) => acc + n, 0)
-console.log(oddNumbers)
+const oddNumbersSum = numbers
+  .filter(number => number % 2) // Como o número par resulta em 0, e 0 é um número falsy, significa que vai dar certo, pois só vai pegar os números que retornar 1, que no caso são números ímpares
+  .reduce((acc, number) => acc + number, 0)
+console.log(oddNumbersSum)
 
 /*
   07
@@ -120,7 +119,7 @@ const data = [
   },
 ]
 
-const countPeople = data
+const populationSum = data
   .filter(({ country }) => country !== 'China')
   .reduce((acc, { population }) => acc + population, 0)
-console.log(countPeople)
+console.log(populationSum)
