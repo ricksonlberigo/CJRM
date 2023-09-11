@@ -6,7 +6,8 @@
 */
 
 const myString = '    JS      '.trim()
-console.log(myString)
+const trimmedString = myString.trim()
+console.log(trimmedString)
 
 /*
   02
@@ -25,7 +26,13 @@ const people = [
 ]
 
 const peopleOrder = people
-  .map(item => item)
+  .map(person => {
+    return {
+      firstName: person.firstName,
+      lastName: person.lastName,
+      score: person.score,
+    }
+  })
   .sort((item1, item2) => item1.score - item2.score)
 console.log(peopleOrder)
 
@@ -51,6 +58,9 @@ console.log(animalsWith3Characters)
     nome de cada animal. Ex.: [6, 8, 2].
 */
 
+const countCharacterInArrayOfAnimals = animals.map(animal => animal.length)
+console.log(countCharacterInArrayOfAnimals)
+
 /*
   05
 
@@ -66,6 +76,10 @@ const friends = [
   { id: 4, name: 'Nilson', nearMe: true },
   { id: 5, name: 'Solange', nearMe: false },
 ]
+const friendNear = friends
+  .filter(({ nearMe }) => nearMe)
+  .map(({ name }) => name)
+console.log(friendNear)
 
 /*
   06
@@ -75,6 +89,10 @@ const friends = [
 */
 
 const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81]
+const oddNumbers = numbers
+  .filter(n => n % 2 === 1)
+  .reduce((acc, n) => acc + n, 0)
+console.log(oddNumbers)
 
 /*
   07
@@ -101,3 +119,8 @@ const data = [
     population: 263991379,
   },
 ]
+
+const countPeople = data
+  .filter(({ country }) => country !== 'China')
+  .reduce((acc, { population }) => acc + population, 0)
+console.log(countPeople)
