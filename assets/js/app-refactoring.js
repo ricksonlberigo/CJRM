@@ -3,9 +3,8 @@ const inputSearchTodo = document.querySelector('.form-search input')
 const todosContainer = document.querySelector('.todos-container')
 
 const addTodo = (inputValue, event) => {
-  const todoContentExists = inputValue.length
-
-  if (todoContentExists) {
+  const existsContentInTodo = inputValue.length
+  if (existsContentInTodo) {
     todosContainer.innerHTML += `
       <li class="list-group-item d-flex justify-content-between align-items-center" data-todo="${inputValue}">
         <span>${inputValue}</span>
@@ -25,7 +24,9 @@ formAddTodo.addEventListener('submit', event => {
 
 const removeTodo = clickedElement => {
   const trashDataValue = clickedElement.dataset.trash
-  const todo = document.querySelector(`[data-todo="${trashDataValue}"]`)
+  const todo = document.querySelector(
+    `[data-todo="${clickedElement.dataset.trash}"]`,
+  )
 
   if (trashDataValue) {
     todo.remove()
@@ -37,10 +38,10 @@ todosContainer.addEventListener('click', event => {
   removeTodo(clickedElement)
 })
 
-const filterTodos = (todos, inputValue, returnerMatchedTodos) =>
+const filterTodos = (todos, inputValue, returnMatchedTodos) =>
   todos.filter(todo => {
     const matchedTodos = todo.textContent.toLowerCase().includes(inputValue)
-    return returnerMatchedTodos ? matchedTodos : !matchedTodos
+    return returnMatchedTodos ? matchedTodos : !matchedTodos
   })
 
 const manipulateClasses = (todos, classToAdd, classToRemove) => {
@@ -51,13 +52,13 @@ const manipulateClasses = (todos, classToAdd, classToRemove) => {
 }
 
 const hideTodos = (todos, inputValue) => {
-  const todoHide = filterTodos(todos, inputValue, false)
-  manipulateClasses(todoHide, 'hidden', 'd-flex')
+  const todosToHide = filterTodos(todos, inputValue, false)
+  manipulateClasses(todosToHide, 'hidden', 'd-flex')
 }
 
 const showTodos = (todos, inputValue) => {
-  const showHide = filterTodos(todos, inputValue, true)
-  manipulateClasses(showHide, 'd-flex', 'hidden')
+  const todosToShow = filterTodos(todos, inputValue, true)
+  manipulateClasses(todosToShow, 'd-flex', 'hidden')
 }
 
 inputSearchTodo.addEventListener('input', event => {
