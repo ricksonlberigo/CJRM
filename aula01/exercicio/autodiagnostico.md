@@ -1,0 +1,1 @@
+No exercício 02, eu esqueci de passar o name como argumento de x, por que na função logGreeting, é necessário passar um name, e na chamada da função x, eu preciso passar a função de callback, e o valor de nome, para ser executado
