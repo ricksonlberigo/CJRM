@@ -8,17 +8,15 @@
     do GitHub.
 */
 
-const getPerfilGitHub = async () => {
-  const response = await fetch('https://api.github.com/users/ricksonlberigo')
+const fetchGitHubUser = async (username) => {
+  const response = await fetch(`https://api.github.com/users/${username}`)
   return await response.json()
 }
 
-const logDataUser = async () => {
-  const userData = await getPerfilGitHub()
-  console.log(userData)
-}
+const logGitHubUser = async username => 
+  console.log(await fetchGitHubUser(username))
 
-logDataUser()
+logGitHubUser('ricksonlberigo')
 
 /*
   02
@@ -30,11 +28,11 @@ logDataUser()
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-const numberOnlyDividerFor2And3 = numbers.filter(
+const getDivisibleBy2Or3 = numbers => numbers.filter(
   number => number % 2 === 0 || number % 3 === 0,
 )
 
-console.log(numberOnlyDividerFor2And3)
+console.log(getDivisibleBy2Or3(numbers))
 
 /*
   03
@@ -49,6 +47,17 @@ console.log(numberOnlyDividerFor2And3)
     - Natália => "PNaPtáPlia";
     - Rafaela => "PRaPfaPePla".
 */
+
+const myName = ['ri','ck','son','n']
+const name2 = ['ro','ger']
+const name3 = ['ra','fa','e','la']
+
+const getNameInPLanguage =  name =>  
+  name.reduce((acc, syllable) => `${acc}P${syllable}`,'')
+
+console.log(getNameInPLanguage(myName));
+console.log(getNameInPLanguage(name2));
+console.log(getNameInPLanguage(name3));
 
 /*
   04
@@ -65,6 +74,14 @@ console.log(numberOnlyDividerFor2And3)
   Dica: pesquise pelo método split.
 */
 
+const name = 'Rickson'
+const logSpllitedName = name => name
+  .split('')
+  .forEach((letter, index) => 
+    console.log(`"${letter}" é a ${index+1}ª letra do meu nome.`))
+
+logSpllitedName(name)
+
 /*
   05
 
@@ -77,6 +94,13 @@ console.log(numberOnlyDividerFor2And3)
 
   Dica: pesquise pelo método Object.keys().
 */
+
+const person = {
+  name: 'Rickson',
+  lastname: 'Berigo',
+  age: 20
+}
+console.log(Object.keys(person));
 
 /*
   06
@@ -92,6 +116,13 @@ console.log(numberOnlyDividerFor2And3)
 */
 
 const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
+
+const numberFrequency = (array, number) => 
+array.reduce((acc, item) => item === number ? acc + 1 : acc, 0)
+
+
+console.log(numberFrequency(scores, 100));
+
 
 /*
   07
