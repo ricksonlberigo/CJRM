@@ -17,17 +17,20 @@
 */
 
 const request = new XMLHttpRequest()
-request.open('GET',' https://pokeapi.co/api/v2/pokemon/pikachu')
+request.open('GET', ' https://pokeapi.co/api/v2/pokemon/pikachu')
 
 request.addEventListener('readystatechange', () => {
-    if(request.readyState === 4 && request.status === 200) {
-        console.log(request.responseText);
-        return
-    }
-   
-    if(request.readyState === 4) {
-        console.log('Não foi possível obter os dados do pokémon');
-    }
+  const isRequestOk = request.readyState === 4 && request.status === 200
+  const isRequestNotOk = request.readyState === 4
+
+  if (isRequestOk) {
+    console.log(request.responseText)
+    return
+  }
+
+  if (isRequestNotOk) {
+    console.log('Não foi possível obter os dados do pokémon!')
+  }
 })
 
 request.send()
@@ -47,16 +50,18 @@ request.send()
     - Quantos metros você caminhou (number iniciado em 0).
 */
 
-let myPerson = {
-    name: 'Rickson Lucas',
-    surname: 'Berigo',
-    gender: 'Masculino',
-    age: -4,
-    height: 1.71,
-    weight: 58.3,
-    isWalk: false,
-    metersIsWalk: 0
+let person = {
+  name: 'Rickson Lucas',
+  lastName: 'Berigo',
+  gender: 'Masculino',
+  age: 20,
+  height: 1.71,
+  weight: 58.3,
+  isWalking: false,
+  walkedMeters: 0,
 }
+
+console.log(person)
 
 /*
   03
@@ -67,14 +72,15 @@ let myPerson = {
   - Após criar o método, adicione 5 anos à idade do objeto.
 */
 
-myPerson.addAge = () => {
-    myPerson.age++
+person.incrementAge = () => {
+  person.age++
 }
 
-for(let i = 1; i <= 5; i++) {
-    myPerson.addAge()
+for (let i = 1; i <= 5; i++) {
+  person.incrementAge()
 }
-console.log(myPerson.age);
+
+console.log(person.age)
 
 /*
   04
@@ -87,15 +93,16 @@ console.log(myPerson.age);
     método 4x, com diferentes metragens passadas por parâmetro.
 */
 
-myPerson.addMeters = (meters) => {
-    myPerson.metersIsWalk += meters
-    myPerson.isWalk = true
+person.walk = meters => {
+  person.walkedMeters += meters
+  person.isWalking = true
 }
-myPerson.addMeters(1)
-myPerson.addMeters(2)
-myPerson.addMeters(3)
-myPerson.addMeters(4)
-console.log(myPerson);
+
+const meters = [7, 13, 15, 20]
+
+meters.forEach(meter => person.walk(meter))
+
+console.log(person.walkedMeters, person.isWalking)
 
 /*
   05
@@ -114,15 +121,30 @@ console.log(myPerson);
       "metro", no singular.
 */
 
-myPerson.appresentation = () => {
-    const nameComplet = `${myPerson.name} ${myPerson.surname}`
-    const gender = myPerson.gender === 'Feminino' ? 'a' : 'o'
-    const pluralOrSingular = myPerson.age === 1 ? 'ano' : 'anos'
-    const pluralOrSingularMeters = myPerson.metersIsWalk === 1 ? 'metro' : 'metros'
-    return `Oi. Eu sou ${gender} ${nameComplet}, tenho ${myPerson.age} ${pluralOrSingular}, ${myPerson.height} metros de altura,  peso ${myPerson.weight} quilos e, só hoje, eu já caminhei ${myPerson.metersIsWalk} ${pluralOrSingularMeters}.`
+const getPluralOrSingular = (quantity, singular, plural) =>
+  quantity === 1 ? singular : plural
+
+person.introduction = () => {
+  const { gender, age, walkedMeters, height, name, lastName, weight } = person
+
+  const nameComplete = `${name} ${lastName}`
+  const correctGender = gender === 'Feminino' ? 'a' : 'o'
+
+  const agePluralOrSingular = getPluralOrSingular(age, 'ano', 'anos')
+  const walkedMetersPluralOrSingular = getPluralOrSingular(
+    walkedMeters,
+    'metro',
+    'metros',
+  )
+  const heightMetersPluralOrSingular = getPluralOrSingular(
+    height,
+    'metro',
+    'metros',
+  )
+  return `Oi. Eu sou ${correctGender} ${nameComplete}, tenho ${age} ${agePluralOrSingular}, ${height} ${heightMetersPluralOrSingular} de altura,  peso ${weight} quilos e, só hoje, eu já caminhei ${walkedMeters} ${walkedMetersPluralOrSingular}.`
 }
 
-console.log(myPerson.appresentation());
+console.log(person.introduction())
 
 /*
   06
@@ -135,6 +157,17 @@ console.log(myPerson.appresentation());
     valor truthy;
     - Faça isso até que 7 valores truthy sejam passados.
 */
+
+const isTruthy = value => Boolean(value)
+
+const falsyValues = [false, 0, '', null, undefined, NaN]
+const truthyValues = [true, '0', () => {}, {}, [], -1, 'false']
+
+const logFalsyValues = falsyValue => console.log(isTruthy(falsyValue))
+const logTruthyValues = truthyValue => console.log(isTruthy(truthyValue))
+
+falsyValues.forEach(logFalsyValues)
+truthyValues.forEach(logTruthyValues)
 
 /*
   07
@@ -154,3 +187,28 @@ console.log(myPerson.appresentation());
 
   Dica: propriedades de objetos podem ser declaradas como strings.
 */
+
+const getBook = bookName => {
+  const books = {
+    'Jurassic Park': {
+      totalPages: 460,
+      author: 'Michel Crichton',
+      publisher: 'Ballantine Books',
+    },
+    'As Armas da Persuasão': {
+      totalPages: 304,
+      author: 'Robert Cialdini',
+      publisher: 'Sextante',
+    },
+    '2001: Uma Odisséia no Espaço': {
+      totalPages: 336,
+      author: 'Arthur C. Clarke',
+      publisher: 'Aleph',
+    },
+  }
+
+  // Utilizando o curto circuito, pois como o comprador or (||) retorna o primeiro true, caso não exista nome ele retorna os livros, e caso tenha os nomes e bata com os nomes já existentes ele retorna apenas o objeto que possui o nome passado como argumento.
+  return books[bookName] || books
+}
+
+console.log(getBook('As Armas da Persuasão'))
