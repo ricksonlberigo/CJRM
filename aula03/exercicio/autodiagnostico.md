@@ -1,0 +1,1 @@
+Tive dificuldades em realizar o último exercício por achar que seria com filter e reduce e no exercício da criação do map
