@@ -8,12 +8,12 @@
     do GitHub.
 */
 
-const fetchGitHubUser = async (username) => {
+const fetchGitHubUser = async username => {
   const response = await fetch(`https://api.github.com/users/${username}`)
   return await response.json()
 }
 
-const logGitHubUser = async username => 
+const logGitHubUser = async username =>
   console.log(await fetchGitHubUser(username))
 
 logGitHubUser('ricksonlberigo')
@@ -28,9 +28,8 @@ logGitHubUser('ricksonlberigo')
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-const getDivisibleBy2Or3 = numbers => numbers.filter(
-  number => number % 2 === 0 || number % 3 === 0,
-)
+const getDivisibleBy2Or3 = numbers =>
+  numbers.filter(number => number % 2 === 0 || number % 3 === 0)
 
 console.log(getDivisibleBy2Or3(numbers))
 
@@ -48,16 +47,16 @@ console.log(getDivisibleBy2Or3(numbers))
     - Rafaela => "PRaPfaPePla".
 */
 
-const myName = ['ri','ck','son','n']
-const name2 = ['ro','ger']
-const name3 = ['ra','fa','e','la']
+const myName = ['ri', 'ck', 'son', 'n']
+const name2 = ['ro', 'ger']
+const name3 = ['ra', 'fa', 'e', 'la']
 
-const getNameInPLanguage =  name =>  
-  name.reduce((acc, syllable) => `${acc}P${syllable}`,'')
+const getNameInPLanguage = name =>
+  name.reduce((acc, syllable) => `${acc}P${syllable}`, '')
 
-console.log(getNameInPLanguage(myName));
-console.log(getNameInPLanguage(name2));
-console.log(getNameInPLanguage(name3));
+console.log(getNameInPLanguage(myName))
+console.log(getNameInPLanguage(name2))
+console.log(getNameInPLanguage(name3))
 
 /*
   04
@@ -75,19 +74,21 @@ console.log(getNameInPLanguage(name3));
 */
 
 const name = 'Rickson'
-const logSpllitedName = name => name
-  .split('')
-  .forEach((letter, index) => 
-    console.log(`"${letter}" é a ${index+1}ª letra do meu nome.`))
+const logSplittedName = name =>
+  name
+    .split('')
+    .forEach((letter, index) =>
+      console.log(`"${letter}" é a ${index + 1}ª letra do meu nome.`),
+    )
 
-logSpllitedName(name)
+logSplittedName(name)
 
 /*
   05
 
   - Crie um objeto com as seguintes propriedades e tipos de valores:
     - name: String
-    - lastname: String
+    - lastName: String
     - age: Number
   - Exiba no console, em um array, todas as propriedades do objeto acima;
   - Não use nenhuma estrutura de repetição, nem crie o array manualmente.
@@ -98,9 +99,9 @@ logSpllitedName(name)
 const person = {
   name: 'Rickson',
   lastname: 'Berigo',
-  age: 20
+  age: 20,
 }
-console.log(Object.keys(person));
+console.log(Object.keys(person))
 
 /*
   06
@@ -117,12 +118,10 @@ console.log(Object.keys(person));
 
 const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
 
-const numberFrequency = (array, number) => 
-array.reduce((acc, item) => item === number ? acc + 1 : acc, 0)
+const getOccurrences = (array, value) =>
+  array.reduce((acc, item) => (value === item ? acc + 1 : acc), 0)
 
-
-console.log(numberFrequency(scores, 100));
-
+console.log(getOccurrences(scores, 100))
 
 /*
   07
@@ -147,3 +146,30 @@ console.log(numberFrequency(scores, 100));
   Dica: lembre-se que o método filter inclui o item em questão no novo array 
   que está sendo gerado **apenas** se a função retorna um valor truthy.
 */
+
+const filter = (array, func) => {
+  let newArray = []
+
+  const filterItem = (item, index) => {
+    // Como 0 é um valor falsy, fazendo isso caso usamos o segundo elemento vai ficar correto
+    const itemShouldBeAdded = func(item, index, array)
+    if (itemShouldBeAdded) {
+      newArray.push(item)
+    }
+  }
+
+  array.forEach(filterItem)
+
+  return newArray
+}
+
+console.log(filter([1, 2, 3], item => item))
+console.log(filter([0, 1, 2], item => item))
+console.log(filter([1, 2, 3], item => item < 2))
+console.log(filter([1, 2, 3, 5], (item, index) => item === index + 1))
+console.log(
+  filter(
+    [1, 2, 3, 2, 1, 5],
+    (item, index, array) => index === array.indexOf(item),
+  ),
+)
