@@ -5,12 +5,8 @@
   - Solucione esse problema sem declarar uma constante "book".
 */
 
-try {
     console.log(book)
-} catch(error) {
-    const book = 'Book aqui'
-    console.log(book)
-}
+
 
 /*
   02
@@ -22,11 +18,9 @@ try {
   - Implemente a função da forma mais concisa que você conseguir.
 */
 
-const invokeArrays = (item1, item2, item3) => {
-    return [item3, item1, item2]
-}
+const swap = ([first, third]) => [third, first]
 
-console.log(invokeArrays(1, 2, 3))
+console.log(swap([1,2,3]))
 
 /*
   03
@@ -40,6 +34,9 @@ const topics = [
     { id: 2, name: 'Negócios & finanças'},
     { id: 3, name: 'Carreiras'}
 ]
+
+const [, , {name}] = topics
+console.log(name);
   
   /*
     04
@@ -50,6 +47,9 @@ const topics = [
   */
   
   const colors = ['#FF00FF', ['#FF0D0D', '#0AFA00', '#011EFA'], '#7BF0FF']
+
+  const [, [red, green, blue]] = colors
+  console.log(red, green , blue);
   
   /*
     05
@@ -65,8 +65,13 @@ const topics = [
       - Faça a função retornar "Olá, meu nome é [NOME]!".
   */
   
-  // console.log(greet({ name: 'Roger' }, 'name'))
-  // console.log(greet({}, 'personName'))
+  const greet = (obj, dynamicName) => {
+    const { [dynamicName]: name = 'desconhecido' } = obj;
+    return `Olá, meu nome é ${name}!`;
+  }
+
+  console.log(greet({ name: 'Roger' }, 'name'))
+  console.log(greet({}, 'personName'))
   
   /*
     06
