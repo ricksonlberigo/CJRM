@@ -1,64 +1,23 @@
-const APIKey = '735SJLAiJeJLNAhK9l20E1hG1aDujfnd';
+const APIKey = 'kHhMA9mIvtN0nyFRSxJgGlox3WKIkGEd'
+const baseURL = 'http://dataservice.accuweather.com/'
 
-const getCityURL = cityName => `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${APIKey}&q=${cityName}`;
+const getCityURL = cityName =>
+  `${baseURL}locations/v1/cities/search?apikey=${APIKey}&q=${cityName}`
 
-const getCityData = async cityName => {
-    try {
-        const cityUrl = getCityURL(cityName)
-        const response = await fetch(cityUrl)
+const getWeatherURL = cityKey =>
+  `${baseURL}currentconditions/v1/${cityKey}?apikey=${APIKey}&language=pt-br`
 
-        if(!response.ok) throw new Error('Não foi possível obter os dados.')
-
-        const [cityData] = await response.json()
-        return cityData
-    } catch({name, message}) {
-        alert(`${name}: ${message}`)
-    }
-}
-
-const getCityWeather = async cityName => {
-    try {
-        const {Key} = await getCityData(cityName)
-        const cityWeatherURL = `http://dataservice.accuweather.com/currentconditions/v1/${Key}?apikey=${APIKey}&language=pt-br`
-        const response = await fetch(cityWeatherURL)
-
-        if(!response.ok) throw new Error('Não foi possível obter os dados.')
-
-        const [cityWeatherData] = await response.json()
-        return cityWeatherData
-    } catch({name, message}) {
-        alert(`${name}: ${message}`)
-    }
-}
-
-getCityWeather('São Paulo')
-
-/*
-const requestsInAPI = async (dataURL) => {
+const fetchData = async url => {
   try {
-    const url = dataURL;
-    const response = await fetch(url);
+    const response = await fetch(url)
 
-    if (!response.ok) throw new Error('Não foi possível obter os dados.');
+    if (!response.ok) throw new Error('Não foi possível obter os dados.')
 
-    const [data] = await response.json();
-    console.log(data);
-    return data
-  } catch (error) {
-    alert(`${error.name}: ${error.message}`);
+    return response.json()
+  } catch ({ name, message }) {
+    alert(`${name}: ${message}`)
   }
-};
+}
 
-const getCityData = async cityName => {
-  const url = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${APIKey}&q=${cityName}`;
-  return requestsInAPI(url); 
-};
-
-const getCityWeather = async cityName => {
-  const { Key } = await getCityData(cityName);
-  const url = `http://dataservice.accuweather.com/currentconditions/v1/${Key}?apikey=${APIKey}`;
-  return requestsInAPI(url); 
-};
-
-getCityWeather('São Paulo')
-*/
+const getCityData = cityName => fetchData(getCityURL(cityName))
+const getCityWeather = cityKey => fetchData(getWeatherURL(cityKey))
