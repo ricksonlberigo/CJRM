@@ -5,13 +5,27 @@
 localStorage.setItem('name', 'Rickson')
 localStorage.setItem('age', 20)
 
-const name = localStorage.getItem('name')
-const age = localStorage.getItem('age')
+let name = localStorage.getItem('name')
+let age = localStorage.getItem('age')
+
 console.log(name, age)
 // =====================================================================================
 
 // ==================================== Removendo dados - Aula 01-05
+localStorage.removeItem('name') // remove o dado passado como argumento da localStorage
+localStorage.clear() // limpa todos os dados da localStorage
 // =====================================================================================
 
 // ==================================== Stringficando e parseando dados - Aula 01-06
+const myArray = [
+    {a: 1, b: 2},
+    {c: 1, d: 4},
+    {e: 5, d: 6}
+]
+
+localStorage.setItem('myArray', JSON.stringify(myArray))
+
+const jsonFromLocalStorage = localStorage.getItem('myArray')
+const myConvertedArray = JSON.parse(jsonFromLocalStorage)
+console.log(myConvertedArray);
 // =====================================================================================
