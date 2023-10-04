@@ -70,40 +70,40 @@ console.log(truthyValues)
     funcione.
 */
 
+const formattedTimeUnits = units => units
+  .map(unit => unit < 10 ? `0${unit}` : unit )
+
+const getTime = () => {
+  const date = new Date()
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
+  const seconds = date.getSeconds()
+
+  return [hours, minutes, seconds]
+}
+
+const getFormmatedToTime = (template) => {
+  const [hours, minutes, seconds] = getTime()
+  const formattedTime = formattedTimeUnits([hours, minutes, seconds])
+
+  return template.split(':').map((_, index) => formattedTime[index]).join(':')
+}
+
 class Clock {
   constructor({ template }) {
     this.template = template
   }
 
   render() {
-    const date = new Date()
-    let hours = date.getHours()
-    let minutes = date.getMonth()
-    let seconds = date.getSeconds()
-
-    if (hours < 10) {
-      hours = `0${hours}`
-    }
-
-    if (minutes < 10) {
-      minutes = `0${minutes}`
-    }
-
-    if (seconds < 10) {
-      seconds = `0${seconds}`
-    }
-
-    const formattedTime = this.template
-      .replace('h', hours)
-      .replace('m', minutes)
-      .replace('s', seconds)
-
+    const formattedTime = getFormmatedToTime(this.template)
     console.log(formattedTime)
   }
 
   start() {
+    const oneSecond = 1000
+
     this.render()
-    this.timer = setInterval(() => this.render(), 1000)
+    this.timer = setInterval(() => this.render(), oneSecond)
   }
 
   stop() {
@@ -115,7 +115,7 @@ class ExtendedClock extends Clock {
   constructor(options) {
     super(options)
 
-    let { precision = 1000 } = options
+    const { precision = 1000 } = options
     this.precision = precision
   }
 
@@ -127,7 +127,7 @@ class ExtendedClock extends Clock {
 
 const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
 
-// clock.start()
+clock.start()
 
 /*
   05
