@@ -125,9 +125,9 @@ class ExtendedClock extends Clock {
   }
 }
 
-const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
+// const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
 
-clock.start()
+// clock.start()
 
 /*
   05
@@ -137,12 +137,15 @@ clock.start()
     caracteres que o textarea contém.
 */
 
-const textarea = document.querySelector('[data-js="textarea"]')
-const paragraph = document.querySelector('[data-js="paragraph"]')
-textarea.addEventListener('input', event => {
-  const inputValue = event.target.value
+const textArea = document.querySelector('[data-js="textarea"]')
+const counteParagraph = document.querySelector('[data-js="paragraph"]')
 
-  paragraph.innerText = inputValue.length
+textArea.addEventListener('input', event => {
+  const currentLenght = event.target.value.length
+  const maxLenght = event.target.getAttribute('maxLength')
+
+  counteParagraph.textContent = 
+    `${currentLenght}/${maxLenght}`
 })
 
 /*
@@ -179,17 +182,17 @@ const reduce = (arr, func, acc) => {
   return acc
 }
 
-console.log(reduce([1, 2, 3], (acc, item) => acc + item, 0))
-console.log(reduce([2, 3, 4], (acc, item) => acc + item, 0))
-console.log(
-  reduce(
-    [1, 2],
-    (acc, item) => {
-      acc['number-' + item] = item
-      return acc
-    },
-    {},
-  ),
-)
-console.log(reduce([1, 2], (acc, item, index) => acc + index, 0))
-console.log(reduce([1, 2], (acc, item, index, array) => acc + array[index], 0))
+// console.log(reduce([1, 2, 3], (acc, item) => acc + item, 0))
+// console.log(reduce([2, 3, 4], (acc, item) => acc + item, 0))
+// console.log(
+//   reduce(
+//     [1, 2],
+//     (acc, item) => {
+//       acc['number-' + item] = item
+//       return acc
+//     },
+//     {},
+//   ),
+// )
+// console.log(reduce([1, 2], (acc, item, index) => acc + index, 0))
+// console.log(reduce([1, 2], (acc, item, index, array) => acc + array[index], 0))
