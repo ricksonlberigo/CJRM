@@ -59,7 +59,7 @@ const values = [0, {}, '', [], NaN, () => {}]
 
 const truthyValues = values.filter(Boolean)
 console.log(truthyValues)
- 
+
 /*
   04
 
@@ -70,8 +70,8 @@ console.log(truthyValues)
     funcione.
 */
 
-const formattedTimeUnits = units => units
-  .map(unit => unit < 10 ? `0${unit}` : unit )
+const formattedTimeUnits = units =>
+  units.map(unit => (unit < 10 ? `0${unit}` : unit))
 
 const getTime = () => {
   const date = new Date()
@@ -82,11 +82,14 @@ const getTime = () => {
   return [hours, minutes, seconds]
 }
 
-const getFormmatedToTime = (template) => {
+const getFormattedToTime = template => {
   const [hours, minutes, seconds] = getTime()
   const formattedTime = formattedTimeUnits([hours, minutes, seconds])
 
-  return template.split(':').map((_, index) => formattedTime[index]).join(':')
+  return template
+    .split(':')
+    .map((_, index) => formattedTime[index])
+    .join(':')
 }
 
 class Clock {
@@ -95,7 +98,7 @@ class Clock {
   }
 
   render() {
-    const formattedTime = getFormmatedToTime(this.template)
+    const formattedTime = getFormattedToTime(this.template)
     console.log(formattedTime)
   }
 
@@ -138,15 +141,16 @@ class ExtendedClock extends Clock {
 */
 
 const textArea = document.querySelector('[data-js="textarea"]')
-const counteParagraph = document.querySelector('[data-js="paragraph"]')
+const counterParagraph = document.querySelector('[data-js="paragraph"]')
 
-textArea.addEventListener('input', event => {
-  const currentLenght = event.target.value.length
-  const maxLenght = event.target.getAttribute('maxLength')
+const showCounterParagraph = event => {
+  const currentLength = event.target.value.length
+  const maxLength = event.target.getAttribute('maxLength')
 
-  counteParagraph.textContent = 
-    `${currentLenght}/${maxLenght}`
-})
+  counterParagraph.textContent = `${currentLength}/${maxLength}`
+}
+
+textArea.addEventListener('input', showCounterParagraph)
 
 /*
   06
@@ -175,24 +179,29 @@ textArea.addEventListener('input', event => {
     reduce e um link para a documentação do método no MDN.
 */
 
-const reduce = (arr, func, acc) => {
-  for (let index = 0; index < arr.length; index++) {
-    acc = func(acc, arr[index], index, arr)
+const reduce = (array, func, initialValue) => {
+  let acc = initialValue
+
+  const accumulateCallbackReturn = (item, index, array) => {
+    acc = func(acc, item, index, array)
   }
+
+  array.forEach(accumulateCallbackReturn)
+
   return acc
 }
 
-// console.log(reduce([1, 2, 3], (acc, item) => acc + item, 0))
-// console.log(reduce([2, 3, 4], (acc, item) => acc + item, 0))
-// console.log(
-//   reduce(
-//     [1, 2],
-//     (acc, item) => {
-//       acc['number-' + item] = item
-//       return acc
-//     },
-//     {},
-//   ),
-// )
-// console.log(reduce([1, 2], (acc, item, index) => acc + index, 0))
-// console.log(reduce([1, 2], (acc, item, index, array) => acc + array[index], 0))
+const createItemBaseProperties = (acc, item) => {
+  acc['number-' + item] = item
+  return acc
+}
+
+const sumItems = (acc, item) => acc + item
+const sumItemsPlusIndex = (acc, _, index) => acc + index
+const sumItemsUsingArrayParam = (acc, _, index, array) => acc + array[index]
+
+console.log(reduce([1, 2, 3], sumItems, 0))
+console.log(reduce([2, 3, 4], sumItems, 0))
+console.log(reduce([1, 2], createItemBaseProperties, {}))
+console.log(reduce([1, 2], sumItemsPlusIndex, 0))
+console.log(reduce([1, 2], sumItemsUsingArrayParam, 0))
