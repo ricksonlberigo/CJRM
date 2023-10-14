@@ -18,7 +18,7 @@
 
 const numbers = [50, 100, 50]
 
-const sum = (x, y, z) => x + y + z
+const sum = (...params) => params.reduce((acc, number) => acc + number, 0)
 
 console.log(sum(...numbers))
 
@@ -35,6 +35,60 @@ console.log(sum(...numbers))
   - Para que o item do accordion seja "ativado" ao clicar, faça um toogle 
     utilizando a classe "active".
 */
+
+// const accordionItem = document.querySelectorAll('.accordion-item')
+// const accordionBody = document.querySelectorAll('.accordion-body')
+
+// accordionItem.forEach(accordion => {
+//   const addClassToAccordion = () => {
+//     const accordionBody = accordion.querySelector('.accordion-body')
+//     accordionBody.classList.toggle('active')
+//   }
+//   accordion.addEventListener('click', addClassToAccordion)
+// })
+
+const accordion = document.querySelector('[data-js="accordion"]')
+
+const closeAccordionItem = accordionHeaderToBeClosed => {
+  const accordionHeaderID = accordionHeaderToBeClosed.dataset.accordionHeader
+  const accordionBodyToBeClosed = document.querySelector(
+    `[data-accordion-body="${accordionHeaderID}"]`,
+  )
+
+  accordionHeaderToBeClosed.classList.remove('active')
+  accordionBodyToBeClosed.classList.remove('active')
+}
+
+const handleAccordionClick = e => {
+  const accordionHeaderID = e.target.dataset.accordionHeader
+
+  const clickedAccordionHeader = document.querySelector(
+    `[data-accordion-header="${accordionHeaderID}"]`,
+  )
+
+  const accordionItemToBeOpened = document.querySelector(
+    `[data-accordion-body="${accordionHeaderID}"]`,
+  )
+
+  const accordionHeaderToBeClosed = Array.from(
+    document.querySelectorAll('[data-js="accordion-header"]'),
+  )
+    .filter(accordionHeader => accordionHeader !== clickedAccordionHeader)
+    .find(accordionHeader => accordionHeader.classList.contains('active'))
+
+  if (!e.target.dataset.accordionHeader) {
+    return
+  }
+
+  if (accordionHeaderToBeClosed) {
+    closeAccordionItem(accordionHeaderToBeClosed)
+  }
+
+  clickedAccordionHeader.classList.toggle('active')
+  accordionItemToBeOpened.classList.toggle('active')
+}
+
+accordion.addEventListener('click', handleAccordionClick)
 
 /*
   03
@@ -58,8 +112,32 @@ const volkswagenProto = {
   },
 }
 
-// const amarok = carMaker({ name: 'Amarok', color: 'preta' })
-// const jetta = carMaker({ name: 'Jetta', color: 'prata' })
+const toyotaProto = {
+  logCarInfo() {
+    console.log(`Toyota ${this.name}, cor ${this.color}.`)
+  },
+}
+
+const carMaker = ({ name, color }, protoCar) => {
+  const car = Object.create(protoCar)
+
+  car.name = name
+  car.color = color
+
+  return car
+}
+
+const amarok = carMaker({ name: 'Amarok', color: 'preta' }, volkswagenProto)
+const jetta = carMaker({ name: 'Jetta', color: 'prata' }, volkswagenProto)
+const corolla = carMaker({ name: 'Corolla', color: 'vermelho' }, toyotaProto)
+
+console.log(
+  volkswagenProto.isPrototypeOf(amarok) && volkswagenProto.isPrototypeOf(jetta),
+)
+
+amarok.logCarInfo()
+jetta.logCarInfo()
+corolla.logCarInfo()
 
 /*
   04
@@ -75,10 +153,32 @@ const volkswagenProto = {
     modificando o caractere que ela recebe como segundo argumento.
 */
 
+/*
+const getIndexesOfCharacter = (string, character) => {
+  let arrayFindIndex = []
+
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] === character) {
+      arrayFindIndex.push(i)
+    }
+  }
+
+  return arrayFindIndex
+}
+*/
+
+const getIndexesOfCharacter = (string, character) =>
+  [...string].reduce(
+    (acc, item, index) =>
+      item.toLowerCase() === character.toLowerCase() ? [...acc, index] : acc,
+    [],
+  )
+
 const aString =
   'O Curso de JavaScript Roger Melo funciona com turmas fechadas, abertas poucas vezes e é focado em quem ainda não é fluente em JS. Ou seja, quem não consegue construir aplicações web com JavaScript puro.'
 
-// console.log(getIndexesOfCharacter(aString, 'b'))
+console.log(getIndexesOfCharacter(aString, 'b'))
+console.log(getIndexesOfCharacter(aString, 'o'))
 
 /*
   05
@@ -123,6 +223,35 @@ const aString =
       ela já tem + 1 e faça characterIndex receber 0.
 */
 
+const typing = document.querySelector('[data-js="typing"]')
+
+const messages = ['sou fluente em JS', 'construo aplicações web com JS puro']
+
+let messageIndex = 0
+let characterIndex = 0
+let currentMessage = ''
+let currentCharacters = ''
+
+const type = () => {
+  const shouldTypeFirstMessage = messageIndex === messages.length
+  if (shouldTypeFirstMessage) {
+    messageIndex = 0
+  }
+
+  currentMessage = messages[messageIndex]
+  currentCharacters = currentMessage.slice(0, characterIndex++)
+  typing.textContent = currentCharacters
+
+  const shouldChangeMessageTpBeTyped =
+    currentCharacters.length === currentMessage.length
+  if (shouldChangeMessageTpBeTyped) {
+    messageIndex++
+    characterIndex = 0
+  }
+}
+
+setInterval(type, 200)
+
 /*
   06
 
@@ -144,6 +273,18 @@ const wrongDataFormat = [
   'azul-P',
 ]
 
+const correctDataFormat = wrongDataFormat.reduce((acc, colorAndSize) => {
+  const [color, size] = colorAndSize.split('-')
+
+  acc[color] = acc[color] || {}
+  acc[color][size] = acc[color][size] || 0
+  acc[color][size] += 1
+
+  return acc
+}, {})
+
+console.log(correctDataFormat)
+
 /*
   {
     preto: {
@@ -151,7 +292,7 @@ const wrongDataFormat = [
       M: 1,
       G: 1,
       GG: 2
-    },
+    }, 
     branco: {
       PP: 1,
       G: 1
